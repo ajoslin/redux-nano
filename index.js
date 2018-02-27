@@ -31,7 +31,7 @@ function createActions (prefix, definition) {
   if (typeof definition !== 'object') throw new Error('createActions: definition must be object with action name keys')
 
   return Object.keys(definition).reduce(function (acc, name) {
-    var type = prefix + '/' + name
+    var type = (prefix ? (prefix + '/') : '') + name
     var actionCreator = definition[name] || {}
     if (typeof actionCreator === 'function') {
       acc[name] = createAction(type, actionCreator)
@@ -43,6 +43,7 @@ function createActions (prefix, definition) {
 }
 
 function createReducer (initialState, handlers) {
+  if (typeof handlers !== 'object') throw new Error('createReducer: (initialState, handlers) must be passed in')
   return function reduce (state, action) {
     if (state === undefined) state = initialState
     var handler = handlers[action.type]
