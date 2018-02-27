@@ -1,4 +1,4 @@
-exports.createPrefixed = createPrefixed
+exports.createActionPrefix = createActionPrefix
 exports.createAction = createAction
 exports.createActions = createActions
 exports.createReducer = createReducer
@@ -27,7 +27,7 @@ function createAction (type, payloadCreator, metaCreator) {
   return actionCreator
 }
 
-function createPrefixed (prefix) {
+function createActionPrefix (prefix) {
   return function createPrefixedAction (type, arg1, arg2) {
     type = (prefix ? (prefix + '/') : '') + type
     return createAction(type, arg1, arg2)
